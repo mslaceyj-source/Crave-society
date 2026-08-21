@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crave Society — Fall Drops</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Karla:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   EDIT ONLY THIS BLOCK EACH WEEK.
+   Everything below it runs itself. Keep the quotes and commas.
+   ═══════════════════════════════════════════════════════════ */
+
+const DROP = {
+
+  ordersClose:  "Wednesday, 8 PM",
+  pickupDay:    "Saturday",
+  pickupWindow: "11AM – 1PM",
+  neighborhood: "Southwind",
+
+  orderLink:    "https://forms.gle/5bZoNQQwxLHDz5xm8",
+  handle:       "@cravesocietyDFW",
+
+  // Which flavors are in THIS week's drop.
+  // Move names between the two lists. Nothing else to change.
+  baking: [
+    "Signature Chocolate Chip",
+    "Pumpkin White Chocolate Chip",
+    "Snickerdoodle"
+  ],
+
+  // Set to true when you sell out — flips the banner and button.
+  soldOut: false
+
+};
+
+/* ═══════════ STOP EDITING HERE ═══════════ */
+</script>
+
+<style>
+  :root{
+    --espresso:#17110D;
+    --cocoa:#241A13;
+    --bark:#3A2A1E;
+    --bronze:#8A6B3A;
+    --gold:#C9963F;
+    --honey:#E2B96A;
+    --vanilla:#F5EBDC;
+    --taupe:#A08D7A;
+    --display:'Fraunces',Georgia,serif;
+    --body:'Karla',system-ui,-apple-system,sans-serif;
+    --edge:rgba(201,150,63,.2);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--espresso);color:var(--vanilla);
+    font-family:var(--body);font-weight:300;
+    -webkit-font-smoothing:antialiased;line-height:1.6;overflow-x:hidden;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:0 clamp(20px,5vw,32px)}
+  .label{font-size:10px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--gold)}
+
+  header{padding:clamp(40px,9vw,76px) 0 clamp(32px,6vw,48px);text-align:center}
+  .seal{width:96px;height:96px;margin:0 auto 26px;display:block}
+  h1{
+    font-family:var(--display);font-weight:400;
+    font-size:clamp(42px,12vw,76px);line-height:.94;letter-spacing:.01em;
+    font-variation-settings:'SOFT' 40,'WONK' 1;
+  }
+  .tagline{margin-top:16px;font-size:11px;font-weight:600;letter-spacing:.42em;text-transform:uppercase;color:var(--gold)}
+  .pitch{margin:26px auto 0;max-width:38ch;font-size:clamp(15px,3.4vw,17px);color:#E0D2BF;line-height:1.7}
+
+  .status{
+    margin:34px auto 0;max-width:430px;
+    border:1px solid var(--edge);border-radius:2px;background:var(--cocoa);
+    display:grid;grid-template-columns:1fr 1fr;
+  }
+  .status div{padding:16px 14px}
+  .status div + div{border-left:1px solid var(--edge)}
+  .status .k{font-size:9.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px}
+  .status .v{font-family:var(--display);font-size:19px;font-weight:400;line-height:1.2}
+
+  .ticker{
+    margin-top:clamp(40px,8vw,64px);
+    border-top:1px solid var(--edge);border-bottom:1px solid var(--edge);
+    padding:20px 0;overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+            mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
+  }
+  .track{display:flex;gap:44px;width:max-content;animation:slide 44s linear infinite}
+  .ticker:hover .track{animation-play-state:paused}
+  @keyframes slide{to{transform:translateX(-50%)}}
+  .quote{font-family:var(--display);font-weight:300;font-style:italic;font-size:clamp(15px,3.6vw,19px);white-space:nowrap;color:#EADCC7}
+  .quote::before{content:'“'}
+  .quote::after{content:'”'}
+  @media(prefers-reduced-motion:reduce){
+    .track{animation:none;flex-wrap:wrap;width:auto;gap:14px;justify-content:center}
+    .quote{white-space:normal;text-align:center}
+  }
+
+  section{padding:clamp(46px,9vw,80px) 0}
+  .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:30px}
+  .sec-head .label{white-space:nowrap}
+  .sec-head::after{content:'';flex:1;height:1px;background:var(--edge)}
+
+  .flavor{padding:26px 0;border-bottom:1px solid rgba(201,150,63,.12);display:grid;gap:8px}
+  .flavor:last-of-type{border-bottom:0}
+  .flavor .top{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+  .flavor h3{
+    font-family:var(--display);font-weight:400;
+    font-size:clamp(23px,5.4vw,31px);line-height:1.15;
+    font-variation-settings:'SOFT' 40,'WONK' 1;
+  }
+  .badge{
+    font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+    padding:4px 9px;border-radius:2px;white-space:nowrap;flex-shrink:0;
+    background:var(--gold);color:var(--espresso);
+  }
+  .flavor p{color:#DDCEB9;font-size:15px;max-width:54ch}
+  .allergens{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe)}
+  .flavor.rest{opacity:.42}
+  .flavor.rest .badge{background:transparent;color:var(--taupe);border:1px solid rgba(160,141,122,.5)}
+
+  .prices{border:1px solid var(--edge);border-radius:2px;overflow:hidden}
+  .price{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px clamp(16px,4vw,24px);
+    border-bottom:1px solid var(--edge);background:var(--cocoa);
+  }
+  .price:last-child{border-bottom:0}
+  .price .qty{font-size:15px;font-weight:400}
+  .price .qty small{display:block;font-size:11px;color:var(--taupe);letter-spacing:.08em;margin-top:3px}
+  .price .amt{font-family:var(--display);font-size:27px;font-weight:400;color:var(--gold)}
+  .price.add{background:transparent}
+  .price.add .amt{font-size:19px;color:var(--vanilla)}
+
+  .step{display:grid;grid-template-columns:auto 1fr;gap:18px;padding:22px 0;border-bottom:1px solid rgba(201,150,63,.12)}
+  .step:last-child{border-bottom:0}
+  .step .n{font-family:var(--display);font-size:32px;font-weight:300;color:var(--gold);line-height:1;min-width:38px}
+  .step h4{font-size:16px;font-weight:600;letter-spacing:.02em;margin-bottom:5px}
+  .step p{font-size:14px;color:#D6C6B1}
+
+  .cta{
+    text-align:center;padding:clamp(44px,9vw,72px) clamp(20px,5vw,40px);
+    background:var(--gold);border-radius:2px;color:var(--espresso);
+  }
+  .cta.closed{background:var(--cocoa);border:1px solid var(--edge);color:var(--vanilla)}
+  .cta h2{
+    font-family:var(--display);font-weight:400;
+    font-size:clamp(28px,7vw,42px);line-height:1.1;margin-bottom:12px;
+    font-variation-settings:'SOFT' 40,'WONK' 1;
+  }
+  .cta p{color:rgba(23,17,13,.78);font-size:15px;max-width:34ch;margin:0 auto 26px}
+  .cta.closed p{color:var(--taupe)}
+  .btn{
+    display:inline-block;background:var(--espresso);color:var(--vanilla);
+    padding:15px 38px;border-radius:2px;text-decoration:none;
+    font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+    transition:transform .18s ease, background .18s ease;
+  }
+  .btn:hover,.btn:focus-visible{background:var(--bark);transform:translateY(-2px)}
+  .cta.closed .btn{background:var(--gold);color:var(--espresso);pointer-events:none;opacity:.55}
+  a:focus-visible{outline:2px solid var(--espresso);outline-offset:4px}
+
+  .fine{padding:clamp(40px,8vw,64px) 0 0}
+  .fine ul{list-style:none;display:grid;gap:11px;margin-bottom:30px}
+  .fine li{font-size:13.5px;color:var(--taupe);padding-left:18px;position:relative;line-height:1.6}
+  .fine li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--gold);opacity:.7}
+  .fine li b{color:#E0D2BF;font-weight:600}
+  .notice{border:1px solid var(--edge);border-radius:2px;padding:20px;background:var(--cocoa);margin-bottom:22px}
+  .notice p{font-size:13px;color:var(--taupe);line-height:1.65}
+  .notice p + p{margin-top:12px}
+  .disclosure{font-size:11px;letter-spacing:.09em;color:#8E7C6C;line-height:1.7;text-transform:uppercase}
+
+  footer{padding:44px 0 56px;text-align:center;border-top:1px solid var(--edge);margin-top:34px}
+  footer .mark{font-family:var(--display);font-size:20px;letter-spacing:.06em}
+  footer .sub{font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--taupe);margin-top:9px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <svg class="seal" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Crave Society seal">
+      <circle cx="90" cy="90" r="72" fill="none" stroke="#C9963F" stroke-width="1.6"/>
+      <circle cx="90" cy="90" r="63" fill="none" stroke="#C9963F" stroke-width="0.7" opacity=".55"/>
+      <text x="90" y="106" text-anchor="middle" font-family="Fraunces, Georgia, serif"
+            font-size="58" fill="#F5EBDC" letter-spacing="-1">CS</text>
+      <circle cx="77" cy="127" r="2.4" fill="#C9963F"/>
+      <circle cx="90" cy="130" r="2.4" fill="#C9963F"/>
+      <circle cx="103" cy="127" r="2.4" fill="#C9963F"/>
+    </svg>
+
+    <h1>Crave<br>Society</h1>
+    <div class="tagline">Join the craving</div>
+
+    <p class="pitch">Small-batch cookies, baked to order. One drop a week, capped on purpose. When it's gone, it's gone until next week.</p>
+
+    <div class="status">
+      <div>
+        <div class="k">Orders close</div>
+        <div class="v" data-fill="ordersClose">Wednesday, 8 PM</div>
+      </div>
+      <div>
+        <div class="k">Pickup</div>
+        <div class="v" data-fill="pickupDay">Saturday</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="ticker" aria-label="What members say">
+  <div class="track">
+    <span class="quote">Better than them little cookie places at the mall</span>
+    <span class="quote">These are better than Tiff's Treats</span>
+    <span class="quote">What's in these cookies? Voodoo?</span>
+    <span class="quote">I should've ordered another dozen for myself</span>
+    <span class="quote">She put her foot in these damn cookies</span>
+    <span class="quote">I couldn't stop eating them</span>
+    <span class="quote">Better than them little cookie places at the mall</span>
+    <span class="quote">These are better than Tiff's Treats</span>
+    <span class="quote">What's in these cookies? Voodoo?</span>
+    <span class="quote">I should've ordered another dozen for myself</span>
+    <span class="quote">She put her foot in these damn cookies</span>
+    <span class="quote">I couldn't stop eating them</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section>
+    <div class="sec-head"><span class="label">The Lineup</span></div>
+
+    <div class="flavor" data-flavor="Signature Chocolate Chip">
+      <div class="top">
+        <h3>Signature Chocolate Chip</h3>
+        <span class="badge">This week</span>
+      </div>
+      <p>Nearly two cups of semisweet morsels and chocolate chunks to a single batch, with more pressed on top before it ever hits the oven. Set edges, soft center.</p>
+      <div class="allergens">Wheat · Milk · Eggs · Soy</div>
+    </div>
+
+    <div class="flavor" data-flavor="Pumpkin White Chocolate Chip">
+      <div class="top">
+        <h3>Pumpkin White Chocolate Chip</h3>
+        <span class="badge">This week</span>
+      </div>
+      <p>Pumpkin spice and creamy white chocolate, baked soft and chewy rather than cakey. Only here through the season.</p>
+      <div class="allergens">Wheat · Milk · Eggs · Soy</div>
+    </div>
+
+    <div class="flavor" data-flavor="Snickerdoodle">
+      <div class="top">
+        <h3>Snickerdoodle</h3>
+        <span class="badge">This week</span>
+      </div>
+      <p>Buttery and tangy from cream of tartar, rolled twice through cinnamon sugar for a crackled top and a soft middle.</p>
+      <div class="allergens">Wheat · Milk · Eggs</div>
+    </div>
+
+    <div class="flavor" data-flavor="Maple Pecan">
+      <div class="top">
+        <h3>Maple Pecan</h3>
+        <span class="badge">This week</span>
+      </div>
+      <p>Browned butter and real maple syrup with toasted pecans. Chewy through the center, caramel depth at the edge.</p>
+      <div class="allergens">Wheat · Milk · Eggs · Pecans</div>
+    </div>
+
+    <div class="flavor" data-flavor="S'mores">
+      <div class="top">
+        <h3>S'mores</h3>
+        <span class="badge">This week</span>
+      </div>
+      <p>Graham cookie base, melted chocolate, toasted marshmallow on top. No campfire required.</p>
+      <div class="allergens">Wheat · Milk · Eggs · Soy</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="label">Pricing</span></div>
+    <div class="prices">
+      <div class="price">
+        <div class="qty">Half dozen<small>6 cookies</small></div>
+        <div class="amt">$12</div>
+      </div>
+      <div class="price">
+        <div class="qty">Dozen<small>12 cookies</small></div>
+        <div class="amt">$22</div>
+      </div>
+      <div class="price">
+        <div class="qty">Two dozen<small>24 cookies</small></div>
+        <div class="amt">$42</div>
+      </div>
+      <div class="price add">
+        <div class="qty">Mixed box<small>Any combination of this week's flavors</small></div>
+        <div class="amt">+$2</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-head"><span class="label">How it works</span></div>
+
+    <div class="step">
+      <div class="n">01</div>
+      <div>
+        <h4>Order by <span data-fill="ordersClose">Wednesday, 8 PM</span></h4>
+        <p>The form closes at the deadline. No late additions — that's what keeps every box fresh.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">02</div>
+      <div>
+        <h4>Pay to confirm</h4>
+        <p>Payment is due when you order. Unpaid orders release back to the queue.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">03</div>
+      <div>
+        <h4>Pick up <span data-fill="pickupDay">Saturday</span>, <span data-fill="pickupWindow">10 AM – 12 PM</span></h4>
+        <p>In <span data-fill="neighborhood">[YOUR NEIGHBORHOOD]</span>. Exact address is texted the day before.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="cta" id="cta">
+      <h2 id="ctaTitle">This week's drop is open</h2>
+      <p id="ctaBody">Limited quantities. Once it's claimed, it's closed until next week.</p>
+      <a class="btn" id="ctaBtn" href="#">Place your order</a>
+    </div>
+  </section>
+
+  <div class="fine">
+    <div class="sec-head"><span class="label">Good to know</span></div>
+    <ul>
+      <li><b>Preorder only.</b> Nothing is available same-day or walk-up.</li>
+      <li><b>Limited quantities each week.</b> Once the drop sells out, it's closed until the next one.</li>
+      <li><b>Prepayment required</b> to hold your spot.</li>
+      <li><b>The pickup window is firm.</b> Orders not collected within the window are forfeited and can't be refunded or rescheduled.</li>
+      <li><b>No substitutions or custom flavors</b> during the fall season.</li>
+      <li><b>Warm them up.</b> Ten seconds in the microwave and they taste like they just came off the sheet.</li>
+    </ul>
+
+    <div class="notice">
+      <p><b style="color:#E0D2BF">Allergen information.</b> All cookies are made in a home kitchen that also handles wheat, milk, eggs, soy, tree nuts, and peanuts. Cross-contact cannot be guaranteed. If you have a severe allergy, please order at your own discretion. Per-flavor allergens are listed with each item above.</p>
+      <p class="disclosure">This product was produced in a private residence that is not subject to governmental licensing or inspection.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="mark">Crave Society</div>
+    <div class="sub"><span data-fill="handle">@cravesociety</span> · Texas</div>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  // Fill every [data-fill] element from the DROP settings above
+  document.querySelectorAll('[data-fill]').forEach(function (el) {
+    var key = el.getAttribute('data-fill');
+    if (DROP[key]) el.textContent = DROP[key];
+  });
+
+  // Dim any flavor not in this week's baking list
+  document.querySelectorAll('[data-flavor]').forEach(function (card) {
+    var name = card.getAttribute('data-flavor');
+    var badge = card.querySelector('.badge');
+    if (DROP.baking.indexOf(name) === -1) {
+      card.classList.add('rest');
+      badge.textContent = 'Resting';
+    } else {
+      card.classList.remove('rest');
+      badge.textContent = 'This week';
+    }
+  });
+
+  // Order button + sold-out state
+  var cta = document.getElementById('cta');
+  var btn = document.getElementById('ctaBtn');
+  if (DROP.soldOut) {
+    cta.classList.add('closed');
+    document.getElementById('ctaTitle').textContent = 'This week is sold out';
+    document.getElementById('ctaBody').textContent =
+      'Next drop opens soon. Follow ' + DROP.handle + ' so you catch it.';
+    btn.textContent = 'Sold out';
+    btn.removeAttribute('href');
+  } else {
+    btn.href = DROP.orderLink;
+  }
+})();
+</script>
+
+</body>
+</html>
