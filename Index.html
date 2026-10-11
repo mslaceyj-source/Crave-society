@@ -148,6 +148,15 @@ const DROP = {
   .price .amt{font-family:var(--display);font-size:27px;font-weight:400;color:var(--gold)}
   .price.add{background:transparent}
   .price.add .amt{font-size:19px;color:var(--vanilla)}
+  .platter{margin-top:22px;border:1px solid var(--edge);border-radius:2px;overflow:hidden;background:var(--cocoa)}
+  .platter picture{display:block}
+  .platter img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+  .platter .pbody{padding:18px 20px 20px;display:grid;gap:8px}
+  .platter .ptop{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+  .platter h3{font-family:var(--display);font-weight:400;font-size:22px}
+  .platter .amt{font-family:var(--display);font-size:27px;color:var(--gold)}
+  .platter p{color:#DDCEB9;font-size:14.5px}
+  .platter .pnote{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe)}
 
   .step{display:grid;grid-template-columns:auto 1fr;gap:18px;padding:22px 0;border-bottom:1px solid rgba(201,150,63,.12)}
   .step:last-child{border-bottom:0}
@@ -327,6 +336,15 @@ const DROP = {
         <div class="amt">+$2</div>
       </div>
     </div>
+
+      <div class="platter">
+        <picture><source srcset="party-platter.webp" type="image/webp"><img src="party-platter.jpg" alt="Party platter of chocolate chip and snickerdoodle cookies" loading="lazy" width="1600" height="894"></picture>
+        <div class="pbody">
+          <div class="ptop"><h3>Party Platter</h3><div class="amt">$68</div></div>
+          <p>Three dozen cookies, mixed from this week's flavors and arranged on a tray, ready to set out. Made for showers, office treats and game day.</p>
+          <div class="pnote">Order 1 week ahead · 2 platters per week</div>
+        </div>
+      </div>
   </section>
 
   <section>
