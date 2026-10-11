@@ -124,6 +124,17 @@ const DROP = {
   .allergens{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe)}
   .flavor.rest{opacity:.42}
   .flavor.rest .badge{background:transparent;color:var(--taupe);border:1px solid rgba(160,141,122,.5)}
+  /* cookie photos in flavor cards */
+  .flavor.has-photo{grid-template-columns:92px 1fr;column-gap:16px;align-items:start}
+  .flavor .ftext{display:grid;gap:8px;min-width:0}
+  .flavor .fphoto{display:block;width:92px;height:92px;margin-top:4px;border-radius:4px;overflow:hidden;border:1px solid var(--edge);background:var(--cocoa)}
+  .flavor .fphoto img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.3)}
+  .flavor .fphoto.soon{display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:30px;color:var(--gold);opacity:.7}
+  .flavor.rest .fphoto img{filter:grayscale(.6)}
+  @media(min-width:640px){
+    .flavor.has-photo{grid-template-columns:136px 1fr;column-gap:24px}
+    .flavor .fphoto{width:136px;height:136px}
+  }
 
   .prices{border:1px solid var(--edge);border-radius:2px;overflow:hidden}
   .price{
@@ -235,49 +246,64 @@ const DROP = {
   <section>
     <div class="sec-head"><span class="label">The Lineup</span></div>
 
-    <div class="flavor" data-flavor="Signature Chocolate Chip">
-      <div class="top">
-        <h3>Signature Chocolate Chip</h3>
-        <span class="badge">This week</span>
+    <div class="flavor has-photo" data-flavor="Signature Chocolate Chip">
+      <picture class="fphoto"><source srcset="chocolate-chip.webp" type="image/webp"><img src="chocolate-chip.jpg" alt="Signature Chocolate Chip cookie" loading="lazy" width="800" height="800"></picture>
+      <div class="ftext">
+        <div class="top">
+          <h3>Signature Chocolate Chip</h3>
+          <span class="badge">This week</span>
+        </div>
+        <p>Nearly two cups of semisweet morsels and chocolate chunks to a single batch, with more pressed on top before it ever hits the oven. Set edges, soft center.</p>
+        <div class="allergens">Wheat · Milk · Eggs · Soy</div>
       </div>
-      <p>Nearly two cups of semisweet morsels and chocolate chunks to a single batch, with more pressed on top before it ever hits the oven. Set edges, soft center.</p>
-      <div class="allergens">Wheat · Milk · Eggs · Soy</div>
     </div>
 
-    <div class="flavor" data-flavor="Pumpkin White Chocolate Chip">
-      <div class="top">
-        <h3>Pumpkin White Chocolate Chip</h3>
-        <span class="badge">This week</span>
+    <div class="flavor has-photo" data-flavor="Pumpkin White Chocolate Chip">
+      <div class="fphoto soon" aria-hidden="true">CS</div>
+      <div class="ftext">
+        <div class="top">
+          <h3>Pumpkin White Chocolate Chip</h3>
+          <span class="badge">This week</span>
+        </div>
+        <p>Pumpkin spice and creamy white chocolate, baked soft and chewy rather than cakey. Only here through the season.</p>
+        <div class="allergens">Wheat · Milk · Eggs · Soy</div>
       </div>
-      <p>Pumpkin spice and creamy white chocolate, baked soft and chewy rather than cakey. Only here through the season.</p>
-      <div class="allergens">Wheat · Milk · Eggs · Soy</div>
     </div>
 
-    <div class="flavor" data-flavor="Snickerdoodle">
-      <div class="top">
-        <h3>Snickerdoodle</h3>
-        <span class="badge">This week</span>
+    <div class="flavor has-photo" data-flavor="Snickerdoodle">
+      <picture class="fphoto"><source srcset="snickerdoodle.webp" type="image/webp"><img src="snickerdoodle.jpg" alt="Snickerdoodle cookie" loading="lazy" width="800" height="800"></picture>
+      <div class="ftext">
+        <div class="top">
+          <h3>Snickerdoodle</h3>
+          <span class="badge">This week</span>
+        </div>
+        <p>Buttery and tangy from cream of tartar, rolled twice through cinnamon sugar for a crackled top and a soft middle.</p>
+        <div class="allergens">Wheat · Milk · Eggs</div>
       </div>
-      <p>Buttery and tangy from cream of tartar, rolled twice through cinnamon sugar for a crackled top and a soft middle.</p>
-      <div class="allergens">Wheat · Milk · Eggs</div>
     </div>
 
-    <div class="flavor" data-flavor="Maple Pecan">
-      <div class="top">
-        <h3>Maple Pecan</h3>
-        <span class="badge">This week</span>
+    <div class="flavor has-photo" data-flavor="Maple Pecan">
+      <picture class="fphoto"><source srcset="maple-pecan.webp" type="image/webp"><img src="maple-pecan.jpg" alt="Maple Pecan cookie" loading="lazy" width="800" height="800"></picture>
+      <div class="ftext">
+        <div class="top">
+          <h3>Maple Pecan</h3>
+          <span class="badge">This week</span>
+        </div>
+        <p>Browned butter and real maple syrup with toasted pecans. Chewy through the center, caramel depth at the edge.</p>
+        <div class="allergens">Wheat · Milk · Eggs · Pecans</div>
       </div>
-      <p>Browned butter and real maple syrup with toasted pecans. Chewy through the center, caramel depth at the edge.</p>
-      <div class="allergens">Wheat · Milk · Eggs · Pecans</div>
     </div>
 
-    <div class="flavor" data-flavor="S'mores">
-      <div class="top">
-        <h3>S'mores</h3>
-        <span class="badge">This week</span>
+    <div class="flavor has-photo" data-flavor="S'mores">
+      <picture class="fphoto"><source srcset="smores.webp" type="image/webp"><img src="smores.jpg" alt="S'mores cookie" loading="lazy" width="800" height="800"></picture>
+      <div class="ftext">
+        <div class="top">
+          <h3>S'mores</h3>
+          <span class="badge">This week</span>
+        </div>
+        <p>Graham cookie base, melted chocolate, toasted marshmallow on top. No campfire required.</p>
+        <div class="allergens">Wheat · Milk · Eggs · Soy</div>
       </div>
-      <p>Graham cookie base, melted chocolate, toasted marshmallow on top. No campfire required.</p>
-      <div class="allergens">Wheat · Milk · Eggs · Soy</div>
     </div>
   </section>
 
@@ -381,49 +407,7 @@ const DROP = {
       badge.textContent = 'This week';
     }
   });
-   <!-- ===== CRAVE SOCIETY: COOKIE PHOTO GALLERY ===== -->
-<style>
-  .cs-gallery{max-width:1080px;margin:0 auto;padding:56px 16px;text-align:center}
-  .cs-gallery h2{font-family:inherit;color:#F5EBDC;letter-spacing:.14em;text-transform:uppercase;font-size:1.05rem;margin:0 0 6px}
-  .cs-gallery .cs-rule{width:48px;height:2px;background:#C9963F;margin:0 auto 32px;border:0}
-  .cs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-  @media(min-width:820px){.cs-grid{grid-template-columns:repeat(4,1fr);gap:20px}}
-  .cs-card{margin:0;background:#17110D;border:1px solid rgba(201,150,63,.35);border-radius:14px;overflow:hidden;transition:transform .25s ease,border-color .25s ease}
-  .cs-card:hover{transform:translateY(-4px);border-color:#C9963F}
-  .cs-card picture{display:block}
-  .cs-card img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover}
-  .cs-card figcaption{padding:14px 12px 16px;color:#F5EBDC}
-  .cs-card strong{display:block;font-size:.95rem;letter-spacing:.04em}
-  .cs-card span{display:block;margin-top:4px;font-size:.8rem;color:#C9963F}
-</style>
 
-<section class="cs-gallery" id="the-lineup">
-  <h2>The Lineup</h2>
-  <hr class="cs-rule">
-  <div class="cs-grid">
-    <figure class="cs-card">
-      <picture><source srcset="chocolate-chip.webp" type="image/webp">
-        <img src="chocolate-chip.jpg" alt="Signature Chocolate Chip cookie with melty dark chocolate chunks" loading="lazy" width="800" height="800"></picture>
-      <figcaption><strong>Signature Chocolate Chip</strong><span>Thick, gooey, loaded with chunks</span></figcaption>
-    </figure>
-    <figure class="cs-card">
-      <picture><source srcset="maple-pecan.webp" type="image/webp">
-        <img src="maple-pecan.jpg" alt="Maple Pecan cookie topped with toasted pecan halves" loading="lazy" width="800" height="800"></picture>
-      <figcaption><strong>Maple Pecan</strong><span>Brown butter, maple, toasted pecans</span></figcaption>
-    </figure>
-    <figure class="cs-card">
-      <picture><source srcset="smores.webp" type="image/webp">
-        <img src="smores.jpg" alt="S'mores cookie with toasted marshmallows and chocolate" loading="lazy" width="800" height="800"></picture>
-      <figcaption><strong>S'mores</strong><span>Toasted marshmallow, chocolate, graham</span></figcaption>
-    </figure>
-    <figure class="cs-card">
-      <picture><source srcset="snickerdoodle.webp" type="image/webp">
-        <img src="snickerdoodle.jpg" alt="Snickerdoodle cookie rolled in cinnamon sugar" loading="lazy" width="800" height="800"></picture>
-      <figcaption><strong>Snickerdoodle</strong><span>Soft center, cinnamon sugar crust</span></figcaption>
-    </figure>
-  </div>
-</section>
-<!-- ===== END COOKIE PHOTO GALLERY ===== -->
   // Order button + sold-out state
   var cta = document.getElementById('cta');
   var btn = document.getElementById('ctaBtn');
