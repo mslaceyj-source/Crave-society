@@ -381,7 +381,49 @@ const DROP = {
       badge.textContent = 'This week';
     }
   });
+   <!-- ===== CRAVE SOCIETY: COOKIE PHOTO GALLERY ===== -->
+<style>
+  .cs-gallery{max-width:1080px;margin:0 auto;padding:56px 16px;text-align:center}
+  .cs-gallery h2{font-family:inherit;color:#F5EBDC;letter-spacing:.14em;text-transform:uppercase;font-size:1.05rem;margin:0 0 6px}
+  .cs-gallery .cs-rule{width:48px;height:2px;background:#C9963F;margin:0 auto 32px;border:0}
+  .cs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  @media(min-width:820px){.cs-grid{grid-template-columns:repeat(4,1fr);gap:20px}}
+  .cs-card{margin:0;background:#17110D;border:1px solid rgba(201,150,63,.35);border-radius:14px;overflow:hidden;transition:transform .25s ease,border-color .25s ease}
+  .cs-card:hover{transform:translateY(-4px);border-color:#C9963F}
+  .cs-card picture{display:block}
+  .cs-card img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover}
+  .cs-card figcaption{padding:14px 12px 16px;color:#F5EBDC}
+  .cs-card strong{display:block;font-size:.95rem;letter-spacing:.04em}
+  .cs-card span{display:block;margin-top:4px;font-size:.8rem;color:#C9963F}
+</style>
 
+<section class="cs-gallery" id="the-lineup">
+  <h2>The Lineup</h2>
+  <hr class="cs-rule">
+  <div class="cs-grid">
+    <figure class="cs-card">
+      <picture><source srcset="chocolate-chip.webp" type="image/webp">
+        <img src="chocolate-chip.jpg" alt="Signature Chocolate Chip cookie with melty dark chocolate chunks" loading="lazy" width="800" height="800"></picture>
+      <figcaption><strong>Signature Chocolate Chip</strong><span>Thick, gooey, loaded with chunks</span></figcaption>
+    </figure>
+    <figure class="cs-card">
+      <picture><source srcset="maple-pecan.webp" type="image/webp">
+        <img src="maple-pecan.jpg" alt="Maple Pecan cookie topped with toasted pecan halves" loading="lazy" width="800" height="800"></picture>
+      <figcaption><strong>Maple Pecan</strong><span>Brown butter, maple, toasted pecans</span></figcaption>
+    </figure>
+    <figure class="cs-card">
+      <picture><source srcset="smores.webp" type="image/webp">
+        <img src="smores.jpg" alt="S'mores cookie with toasted marshmallows and chocolate" loading="lazy" width="800" height="800"></picture>
+      <figcaption><strong>S'mores</strong><span>Toasted marshmallow, chocolate, graham</span></figcaption>
+    </figure>
+    <figure class="cs-card">
+      <picture><source srcset="snickerdoodle.webp" type="image/webp">
+        <img src="snickerdoodle.jpg" alt="Snickerdoodle cookie rolled in cinnamon sugar" loading="lazy" width="800" height="800"></picture>
+      <figcaption><strong>Snickerdoodle</strong><span>Soft center, cinnamon sugar crust</span></figcaption>
+    </figure>
+  </div>
+</section>
+<!-- ===== END COOKIE PHOTO GALLERY ===== -->
   // Order button + sold-out state
   var cta = document.getElementById('cta');
   var btn = document.getElementById('ctaBtn');
