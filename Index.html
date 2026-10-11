@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Crave Society — Fall Drops</title>
+<title>Crave Society | Fall Drops</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Karla:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -20,6 +20,7 @@ const DROP = {
   pickupDay:    "Saturday",
   pickupWindow: "11AM – 1PM",
   neighborhood: "Southwind",
+  deliveryWindow: "1PM – 4PM",
 
   orderLink:    "https://forms.gle/5bZoNQQwxLHDz5xm8",
   handle:       "@cravesocietyDFW",
@@ -32,7 +33,7 @@ const DROP = {
     "S'mores"
   ],
 
-  // Set to true when you sell out — flips the banner and button.
+  // Set to true when you sell out. Flips the banner and button.
   soldOut: false
 
 };
@@ -148,6 +149,14 @@ const DROP = {
   .price .amt{font-family:var(--display);font-size:27px;font-weight:400;color:var(--gold)}
   .price.add{background:transparent}
   .price.add .amt{font-size:19px;color:var(--vanilla)}
+  .delivery{margin-top:22px;border:1px solid var(--edge);border-radius:2px;padding:18px 20px 20px;display:grid;gap:10px}
+  .delivery h3{font-family:var(--display);font-weight:400;font-size:22px}
+  .delivery p{color:#DDCEB9;font-size:14.5px}
+  .delivery .zones{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .delivery .zone{background:var(--cocoa);border:1px solid var(--edge);border-radius:2px;padding:12px 14px}
+  .delivery .zone .amt{font-family:var(--display);font-size:24px;color:var(--gold)}
+  .delivery .zone small{display:block;font-size:11px;color:var(--taupe);letter-spacing:.08em;margin-top:2px}
+  .delivery .pnote{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe)}
   .platter{margin-top:22px;border:1px solid var(--edge);border-radius:2px;overflow:hidden;background:var(--cocoa)}
   .platter picture{display:block}
   .platter img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
@@ -337,6 +346,16 @@ const DROP = {
       </div>
     </div>
 
+      <div class="delivery">
+        <h3>Local Delivery</h3>
+        <p>Rather stay home? We'll bring your box to your door on <span data-fill="pickupDay">Saturday</span>, <span data-fill="deliveryWindow">1PM – 4PM</span>.</p>
+        <div class="zones">
+          <div class="zone"><div class="amt">$5</div><small>Within 5 miles</small></div>
+          <div class="zone"><div class="amt">$10</div><small>Within 10 miles</small></div>
+        </div>
+        <div class="pnote">Arlington area · 1 dozen minimum · Choose delivery on the order form</div>
+      </div>
+
       <div class="platter">
         <picture><source srcset="party-platter.webp" type="image/webp"><img src="party-platter.jpg" alt="Party platter of chocolate chip and snickerdoodle cookies" loading="lazy" width="1600" height="894"></picture>
         <div class="pbody">
@@ -354,7 +373,7 @@ const DROP = {
       <div class="n">01</div>
       <div>
         <h4>Order by <span data-fill="ordersClose">Wednesday, 8 PM</span></h4>
-        <p>The form closes at the deadline. No late additions — that's what keeps every box fresh.</p>
+        <p>The form closes at the deadline. No late additions. That's what keeps every box fresh.</p>
       </div>
     </div>
     <div class="step">
@@ -367,8 +386,8 @@ const DROP = {
     <div class="step">
       <div class="n">03</div>
       <div>
-        <h4>Pick up <span data-fill="pickupDay">Saturday</span>, <span data-fill="pickupWindow">10 AM – 12 PM</span></h4>
-        <p>In <span data-fill="neighborhood">[YOUR NEIGHBORHOOD]</span>. Exact address is texted the day before.</p>
+        <h4>Pick up or get it delivered <span data-fill="pickupDay">Saturday</span></h4>
+        <p>Pickup is <span data-fill="pickupWindow">10 AM – 12 PM</span> in <span data-fill="neighborhood">[YOUR NEIGHBORHOOD]</span>, and the exact address is texted the day before. Delivery runs <span data-fill="deliveryWindow">1PM – 4PM</span> within 10 miles, and you'll get a text when your order is on the way.</p>
       </div>
     </div>
   </section>
@@ -387,6 +406,7 @@ const DROP = {
       <li><b>Preorder only.</b> Nothing is available same-day or walk-up.</li>
       <li><b>Limited quantities each week.</b> Once the drop sells out, it's closed until the next one.</li>
       <li><b>Prepayment required</b> to hold your spot.</li>
+      <li><b>Delivery is local only.</b> We deliver within 10 miles of Arlington and don't ship. Someone needs to be available to receive the order.</li>
       <li><b>The pickup window is firm.</b> Orders not collected within the window are forfeited and can't be refunded or rescheduled.</li>
       <li><b>No substitutions or custom flavors</b> during the fall season.</li>
       <li><b>Warm them up.</b> Ten seconds in the microwave and they taste like they just came off the sheet.</li>
