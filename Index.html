@@ -159,7 +159,8 @@ const DROP = {
   .delivery .pnote{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe)}
   .platter{margin-top:22px;border:1px solid var(--edge);border-radius:2px;overflow:hidden;background:var(--cocoa)}
   .platter picture{display:block}
-  .platter img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+  .platter img{display:block;width:100%;height:auto;aspect-ratio:1/1;object-fit:cover}
+  @media(min-width:640px){.platter img{aspect-ratio:4/3}}
   .platter .pbody{padding:18px 20px 20px;display:grid;gap:8px}
   .platter .ptop{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
   .platter h3{font-family:var(--display);font-weight:400;font-size:22px}
@@ -357,7 +358,7 @@ const DROP = {
       </div>
 
       <div class="platter">
-        <picture><source srcset="party-platter.webp" type="image/webp"><img src="party-platter.jpg" alt="Party platter of chocolate chip and snickerdoodle cookies" loading="lazy" width="1600" height="894"></picture>
+        <picture><source srcset="party-platter.webp" type="image/webp"><img src="party-platter.jpg" alt="Party platter of chocolate chip, sugar and snickerdoodle cookies on a gold tray" loading="lazy" width="1400" height="1400"></picture>
         <div class="pbody">
           <div class="ptop"><h3>Party Platter</h3><div class="amt">$68</div></div>
           <p>Three dozen cookies, mixed from this week's flavors and arranged on a tray, ready to set out. Made for showers, office treats and game day.</p>
