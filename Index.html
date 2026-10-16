@@ -300,6 +300,7 @@ const DROP = {
   .alerts .ok{display:none;margin-top:14px;color:var(--gold);font-size:14.5px}
   .alerts .kit{display:block;margin-top:12px;font-size:10.5px;color:#7E6D5E;text-decoration:none;letter-spacing:.06em}
   [hidden]{display:none !important}
+  #order,#alerts{scroll-margin-top:56px}
 
   footer{padding:44px 0 56px;text-align:center;border-top:1px solid var(--edge);margin-top:34px}
   footer .mark{font-family:var(--display);font-size:20px;letter-spacing:.06em}
@@ -677,7 +678,15 @@ const DROP = {
   }
 
   var now = central();
-  var isOpen = !DROP.soldOut && windowOpen(now);
+  // Add ?preview to the link to see the open order form anytime. Nothing is sent.
+  var PREVIEW = /[?&]preview/.test(location.search);
+  var isOpen = PREVIEW || (!DROP.soldOut && windowOpen(now));
+  if (PREVIEW) {
+    var pb = document.createElement('div');
+    pb.textContent = 'Preview only. Nothing is sent.';
+    pb.style.cssText = 'position:sticky;top:0;z-index:50;background:#C9963F;color:#17110D;text-align:center;font:600 12px Karla,system-ui,sans-serif;letter-spacing:.12em;text-transform:uppercase;padding:10px 12px';
+    document.body.insertBefore(pb, document.body.firstChild);
+  }
   var closedCard = document.getElementById('closedCard');
   var orderWrap = document.getElementById('orderWrap');
 
@@ -714,7 +723,7 @@ const DROP = {
     }
   } else {
     orderWrap.hidden = false;
-    if (DROP.orders === 'auto') {
+    if (DROP.orders === 'auto' && !PREVIEW) {
       var paintClose = function () {
         var n = central();
         var t = split(Math.max(0, CLOSE_AT - n.mins));
@@ -938,13 +947,13 @@ const DROP = {
     btn.disabled = true;
     btn.textContent = 'Sending…';
 
-    fetch('/', {
+    (PREVIEW ? Promise.resolve({ ok: true }) : fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: new URLSearchParams(new FormData(form)).toString()
-    }).then(function (r) {
+    })).then(function (r) {
       if (!r.ok) throw new Error(r.status);
-      if (form.elements['alerts'].checked && form.elements['email'].value) subscribe(form.elements['email'].value);
+      if (!PREVIEW && form.elements['alerts'].checked && form.elements['email'].value) subscribe(form.elements['email'].value);
       form.hidden = true;
       var done = document.getElementById('done');
       done.hidden = false;
