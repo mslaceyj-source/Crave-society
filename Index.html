@@ -36,8 +36,9 @@ const DROP = {
 
   handle:       "@cravesocietyDFW",
 
-  // Your Venmo username, without the @. Customers get a pay button with their total.
-  venmo:        "",
+  // Payment usernames. Customers get a pay button with their exact total.
+  venmo:        "cravesociety",
+  cashapp:      "laceymonet",
 
   // "auto" = opens Sunday at noon, closes Wednesday at 8 PM (Central) on its own.
   // "open" or "closed" = override the schedule this week.
@@ -478,7 +479,7 @@ const DROP = {
       <div class="n">02</div>
       <div>
         <h4>Pay to confirm</h4>
-        <p>Once you place your order, you'll get a Venmo button with your exact total. Unpaid orders release back to the queue.</p>
+        <p>Once you place your order, you'll get a Venmo or Cash App button with your exact total. Apple Pay, Zelle, and cash are available on request. Unpaid orders release back to the queue.</p>
       </div>
     </div>
     <div class="step">
@@ -523,6 +524,7 @@ const DROP = {
         <input type="hidden" name="delivery_zone">
         <input type="hidden" name="delivery_fee">
         <input type="hidden" name="total">
+        <input type="hidden" name="payment">
 
         <div class="panel">
           <span class="label">1 · Your boxes</span>
@@ -558,7 +560,14 @@ const DROP = {
           <label class="field"><span>Mobile number</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="For pickup details"></label>
           <label class="field"><span>Email (optional)</span><input name="email" type="email" autocomplete="email" inputmode="email"></label>
           <label class="check"><input type="checkbox" name="alerts" value="yes" checked> Email me when each new drop opens</label>
-          <label class="field"><span>Notes (optional)</span><textarea name="notes" placeholder="How you'd like a mixed box split, gift notes, anything I should know"></textarea></label>
+          <div class="olabel" style="margin-top:18px">How you'll pay</div>
+          <div class="chips">
+            <button type="button" class="chip" data-pay="Venmo" aria-pressed="true">Venmo</button>
+            <button type="button" class="chip" data-pay="Cash App" aria-pressed="false">Cash App</button>
+            <button type="button" class="chip" data-pay="Other" aria-pressed="false">Apple Pay, Zelle, or cash</button>
+          </div>
+          <div class="bnote" id="payHint" hidden>Tell me which one in the notes and I'll text you to confirm. Cash needs my OK before pickup.</div>
+          <label class="field"><span id="notesLabel">Notes (optional)</span><textarea name="notes" placeholder="How you'd like a mixed box split, gift notes, anything I should know"></textarea></label>
           <label class="check"><input type="checkbox" name="allergen_ack" value="yes" required> I've read the allergen information below. Cookies are made in a home kitchen that also handles wheat, milk, eggs, soy, tree nuts, and peanuts.</label>
         </div>
 
@@ -579,6 +588,7 @@ const DROP = {
         <div class="amt" id="doneAmt"></div>
         <p id="donePay"></p>
         <a class="paybtn" id="venmoBtn" href="#" target="_blank" rel="noopener" hidden>Pay with Venmo</a>
+        <a class="paybtn" id="cashBtn" href="#" target="_blank" rel="noopener" hidden>Pay with Cash App</a>
         <p id="doneWhen" style="color:var(--taupe);font-size:13.5px"></p>
       </div>
     </div>
@@ -914,6 +924,19 @@ const DROP = {
     } catch (e) {}
   }
 
+  var pay = 'Venmo';
+  document.querySelectorAll('.chip[data-pay]').forEach(function (c) {
+    c.onclick = function () {
+      pay = c.getAttribute('data-pay');
+      document.querySelectorAll('.chip[data-pay]').forEach(function (x) {
+        x.setAttribute('aria-pressed', x === c ? 'true' : 'false');
+      });
+      document.getElementById('payHint').hidden = pay !== 'Other';
+      document.getElementById('notesLabel').textContent = pay === 'Other' ? 'Notes (say how you want to pay)' : 'Notes (optional)';
+      document.getElementById('err').classList.remove('show');
+    };
+  });
+
   form.addEventListener('change', function () { document.getElementById('err').classList.remove('show'); });
 
   form.addEventListener('submit', function (e) {
@@ -927,6 +950,7 @@ const DROP = {
     else if (form.elements['email'].value && !form.elements['email'].checkValidity()) msg = 'That email address looks off.';
     else if (ful === 'Delivery' && t.cookies < 12) msg = 'Delivery has a 1 dozen minimum. Add another box or choose pickup.';
     else if (ful === 'Delivery' && !form.elements['address'].value.trim()) msg = 'Add your delivery address.';
+    else if (pay === 'Other' && !form.elements['notes'].value.trim()) msg = 'Add a note saying whether you want to use Apple Pay, Zelle, or cash.';
     else if (!form.elements['allergen_ack'].checked) msg = 'Please check the allergen box to continue.';
     if (msg) { err.textContent = msg; err.classList.add('show'); err.scrollIntoView({ block: 'center', behavior: 'smooth' }); return; }
     err.classList.remove('show');
@@ -941,6 +965,7 @@ const DROP = {
     form.elements['delivery_zone'].value = ful === 'Delivery' ? zone.name : '';
     form.elements['delivery_fee'].value = t.fee;
     form.elements['total'].value = t.total;
+    form.elements['payment'].value = pay;
     if (ful !== 'Delivery') form.elements['address'].value = '';
 
     var btn = document.getElementById('submitBtn');
@@ -964,16 +989,21 @@ const DROP = {
         : 'Pickup ' + pickupDate + ', ' + DROP.pickupWindow + ' in ' + DROP.neighborhood + '. The address comes by text the day before.';
       document.getElementById('doneWhen').textContent = when;
       var note = 'Crave Society order ' + id;
-      if (DROP.venmo) {
+      var held = ' Your spot is held once payment lands.';
+      var payEl = document.getElementById('donePay');
+      if (pay === 'Venmo' && DROP.venmo) {
         var v = document.getElementById('venmoBtn');
         v.hidden = false;
         v.href = 'https://venmo.com/' + encodeURIComponent(DROP.venmo.replace(/^@/, '')) +
           '?txn=pay&amount=' + t.total + '&note=' + encodeURIComponent(note);
-        document.getElementById('donePay').textContent =
-          'Tap below to pay. Your total and order number are already filled in. Your spot is held once payment lands.';
+        payEl.textContent = 'Tap below to pay @' + DROP.venmo + '. Your total and order number are already filled in.' + held;
+      } else if (pay === 'Cash App' && DROP.cashapp) {
+        var c = document.getElementById('cashBtn');
+        c.hidden = false;
+        c.href = 'https://cash.app/$' + encodeURIComponent(DROP.cashapp.replace(/^\$/, '')) + '/' + t.total;
+        payEl.textContent = 'Tap below to pay $' + DROP.cashapp + '. Please add ' + id + ' to the note so I can match your order.' + held;
       } else {
-        document.getElementById('donePay').textContent =
-          "You'll get a text shortly with how to pay. Your spot is held once payment lands.";
+        payEl.textContent = "I'll text you to confirm your payment details. Cash needs my OK before pickup." + held;
       }
       done.scrollIntoView({ block: 'start', behavior: 'smooth' });
     }).catch(function () {
