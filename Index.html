@@ -247,8 +247,8 @@ const DROP = {
     line-height:1.2;text-align:left;min-height:40px;
   }
   .chip small{color:var(--taupe);font-weight:400;margin-left:4px}
-  .chip[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--espresso)}
-  .chip[aria-pressed="true"] small{color:rgba(23,17,13,.7)}
+  .chip[aria-pressed="true"]{background:rgba(201,150,63,.14);border-color:var(--gold);color:var(--honey);box-shadow:inset 0 0 0 1px var(--gold)}
+  .chip[aria-pressed="true"] small{color:var(--gold)}
   .chip:disabled{opacity:.4;cursor:default}
   .bfoot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:12px}
   .stepper{display:flex;align-items:center;border:1px solid rgba(201,150,63,.35);border-radius:999px}
@@ -298,6 +298,7 @@ const DROP = {
   .alerts form{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
   .alerts input{flex:1 1 200px;background:var(--espresso);color:var(--vanilla);border:1px solid rgba(201,150,63,.3);border-radius:4px;padding:13px 14px;font:inherit;font-size:16px}
   .alerts button{flex:1 1 120px;background:var(--gold);color:var(--espresso);border:0;border-radius:4px;padding:13px 18px;font:inherit;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer}
+  .alerts.quiet button{background:transparent;color:var(--gold);border:1px solid var(--gold)}
   .alerts .ok{display:none;margin-top:14px;color:var(--gold);font-size:14.5px}
   .alerts .kit{display:block;margin-top:12px;font-size:10.5px;color:#7E6D5E;text-decoration:none;letter-spacing:.06em}
   [hidden]{display:none !important}
@@ -733,6 +734,7 @@ const DROP = {
     }
   } else {
     orderWrap.hidden = false;
+    document.getElementById('alerts').classList.add('quiet');
     if (DROP.orders === 'auto' && !PREVIEW) {
       var paintClose = function () {
         var n = central();
