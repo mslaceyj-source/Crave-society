@@ -34,8 +34,14 @@ const DROP = {
   neighborhood: "Southwind",
   deliveryWindow: "1PM – 4PM",
 
-  orderLink:    "https://forms.gle/5bZoNQQwxLHDz5xm8",
   handle:       "@cravesocietyDFW",
+
+  // Your Venmo username, without the @. Customers get a pay button with their total.
+  venmo:        "",
+
+  // "auto" = opens Sunday at noon, closes Wednesday at 8 PM (Central) on its own.
+  // "open" or "closed" = override the schedule this week.
+  orders:       "auto",
 
   // Which flavors are in THIS week's drop.
   // Move names between the two lists. Nothing else to change.
@@ -218,6 +224,83 @@ const DROP = {
   .notice p + p{margin-top:12px}
   .disclosure{font-size:11px;letter-spacing:.09em;color:#8E7C6C;line-height:1.7;text-transform:uppercase}
 
+  .hero-cta{margin-top:26px}
+  .hero-cta a{display:inline-block;color:var(--gold);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(201,150,63,.5);padding-bottom:4px}
+
+  /* ── Order ── */
+  .order-head{text-align:center;margin-bottom:28px}
+  .order-head h2{font-family:var(--display);font-weight:400;font-size:clamp(30px,7.5vw,44px);line-height:1.08;font-variation-settings:'SOFT' 40,'WONK' 1}
+  .order-head .when{margin-top:10px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .order-head p{margin:12px auto 0;max-width:40ch;color:#DDCEB9;font-size:15px}
+  .panel{border:1px solid var(--edge);border-radius:4px;background:var(--cocoa);padding:clamp(18px,4.5vw,26px);margin-bottom:16px}
+  .panel > .label{display:block;margin-bottom:14px}
+  .box{border:1px solid var(--edge);border-radius:4px;padding:14px;background:var(--espresso);margin-bottom:12px}
+  .box .bhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+  .box .bname{font-family:var(--display);font-size:18px}
+  .box .rm{background:none;border:0;color:var(--taupe);font:inherit;font-size:12px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;padding:6px 0 6px 10px}
+  .olabel{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--taupe);margin:12px 0 8px}
+  .chips{display:flex;flex-wrap:wrap;gap:8px}
+  .chip{
+    font:inherit;font-size:14px;font-weight:500;color:var(--vanilla);background:transparent;
+    border:1px solid rgba(201,150,63,.35);border-radius:999px;padding:9px 14px;cursor:pointer;
+    line-height:1.2;text-align:left;min-height:40px;
+  }
+  .chip small{color:var(--taupe);font-weight:400;margin-left:4px}
+  .chip[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--espresso)}
+  .chip[aria-pressed="true"] small{color:rgba(23,17,13,.7)}
+  .chip:disabled{opacity:.4;cursor:default}
+  .bfoot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;gap:12px}
+  .stepper{display:flex;align-items:center;border:1px solid rgba(201,150,63,.35);border-radius:999px}
+  .stepper button{background:none;border:0;color:var(--gold);font-size:20px;width:40px;height:38px;cursor:pointer;font-family:var(--body)}
+  .stepper span{min-width:22px;text-align:center;font-weight:600}
+  .bprice{font-family:var(--display);font-size:22px;color:var(--gold)}
+  .bnote{font-size:12.5px;color:var(--taupe);margin-top:10px}
+  .addbox{width:100%;background:transparent;border:1px dashed rgba(201,150,63,.5);color:var(--gold);border-radius:4px;padding:13px;font:inherit;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer}
+  .opts{display:grid;gap:10px}
+  .opt{display:block;width:100%;text-align:left;background:var(--espresso);border:1px solid rgba(201,150,63,.3);border-radius:4px;padding:14px 16px;color:var(--vanilla);font:inherit;cursor:pointer}
+  .opt b{display:block;font-family:var(--display);font-weight:400;font-size:19px}
+  .opt > span{display:block;font-size:13px;color:var(--taupe);margin-top:3px}
+  .opt[aria-pressed="true"]{border-color:var(--gold);box-shadow:inset 0 0 0 1px var(--gold)}
+  .opt[aria-pressed="true"] b{color:var(--gold)}
+  .field{display:block;margin-top:14px}
+  .field > span{display:block;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--taupe);margin-bottom:6px}
+  .field input,.field textarea{
+    width:100%;background:var(--espresso);color:var(--vanilla);border:1px solid rgba(201,150,63,.3);border-radius:4px;
+    padding:12px 14px;font:inherit;font-size:16px;font-weight:400;
+  }
+  .field textarea{min-height:84px;resize:vertical}
+  .field input:focus,.field textarea:focus,.chip:focus-visible,.opt:focus-visible,.addbox:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+  .check{display:flex;gap:12px;align-items:flex-start;margin-top:14px;font-size:14px;color:#DDCEB9;cursor:pointer}
+  .check input{width:20px;height:20px;accent-color:var(--gold);flex-shrink:0;margin-top:1px}
+  .summary .row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;font-size:14.5px;color:#DDCEB9}
+  .summary .row.total{border-top:1px solid var(--edge);margin-top:8px;padding-top:14px;color:var(--vanilla);font-size:16px}
+  .summary .row.total b{font-family:var(--display);font-weight:400;font-size:28px;color:var(--gold)}
+  .err{display:none;margin-top:14px;padding:12px 14px;border:1px solid #B5643F;border-radius:4px;color:#F2C3A8;font-size:14px;background:rgba(181,100,63,.12)}
+  .err.show{display:block}
+  .submit{width:100%;margin-top:6px;background:var(--gold);color:var(--espresso);border:0;border-radius:4px;padding:17px;font:inherit;font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+  .submit:disabled{opacity:.6;cursor:default}
+  .done{text-align:center}
+  .done .oid{font-family:var(--display);font-size:clamp(26px,6.5vw,34px);margin:8px 0 4px}
+  .done p{color:#DDCEB9;font-size:15px;max-width:38ch;margin:10px auto 0}
+  .done .amt{font-family:var(--display);font-size:40px;color:var(--gold);margin-top:14px}
+  .paybtn{display:inline-block;margin-top:18px;background:var(--gold);color:var(--espresso);padding:16px 34px;border-radius:4px;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.2em;text-transform:uppercase}
+  .closedcard{text-align:center;padding:clamp(32px,7vw,52px) clamp(18px,5vw,36px)}
+  .closedcard h2{font-family:var(--display);font-weight:400;font-size:clamp(28px,7vw,40px);line-height:1.1;font-variation-settings:'SOFT' 40,'WONK' 1}
+  .closedcard p{color:var(--taupe);font-size:15px;max-width:36ch;margin:12px auto 0}
+  .count{display:flex;justify-content:center;gap:10px;margin-top:22px}
+  .count div{min-width:64px;border:1px solid var(--edge);border-radius:4px;padding:10px 6px;background:var(--espresso)}
+  .count b{display:block;font-family:var(--display);font-weight:400;font-size:26px;color:var(--gold);line-height:1.1}
+  .count small{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--taupe)}
+  .alerts{text-align:center}
+  .alerts h3{font-family:var(--display);font-weight:400;font-size:24px}
+  .alerts p{color:#DDCEB9;font-size:14.5px;margin:8px auto 0;max-width:36ch}
+  .alerts form{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+  .alerts input{flex:1 1 200px;background:var(--espresso);color:var(--vanilla);border:1px solid rgba(201,150,63,.3);border-radius:4px;padding:13px 14px;font:inherit;font-size:16px}
+  .alerts button{flex:1 1 120px;background:var(--gold);color:var(--espresso);border:0;border-radius:4px;padding:13px 18px;font:inherit;font-size:12px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;cursor:pointer}
+  .alerts .ok{display:none;margin-top:14px;color:var(--gold);font-size:14.5px}
+  .alerts .kit{display:block;margin-top:12px;font-size:10.5px;color:#7E6D5E;text-decoration:none;letter-spacing:.06em}
+  [hidden]{display:none !important}
+
   footer{padding:44px 0 56px;text-align:center;border-top:1px solid var(--edge);margin-top:34px}
   footer .mark{font-family:var(--display);font-size:20px;letter-spacing:.06em}
   footer .sub{font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--taupe);margin-top:9px}
@@ -244,14 +327,15 @@ const DROP = {
 
     <div class="status">
       <div>
-        <div class="k">Orders close</div>
-        <div class="v" data-fill="ordersClose">Wednesday, 8 PM</div>
+        <div class="k" id="statusK">Orders close</div>
+        <div class="v" id="statusV" data-fill="ordersClose">Wednesday, 8 PM</div>
       </div>
       <div>
         <div class="k">Pickup</div>
         <div class="v" data-fill="pickupDay">Saturday</div>
       </div>
     </div>
+    <div class="hero-cta"><a href="#order" id="heroLink">Order this week's drop</a></div>
   </div>
 </header>
 
@@ -386,14 +470,14 @@ const DROP = {
       <div class="n">01</div>
       <div>
         <h4>Order by <span data-fill="ordersClose">Wednesday, 8 PM</span></h4>
-        <p>The form closes at the deadline. No late additions. That's what keeps every box fresh.</p>
+        <p>Orders open Sunday at noon and close at the deadline. No late additions. That's what keeps every box fresh.</p>
       </div>
     </div>
     <div class="step">
       <div class="n">02</div>
       <div>
         <h4>Pay to confirm</h4>
-        <p>Payment is due when you order. Unpaid orders release back to the queue.</p>
+        <p>Once you place your order, you'll get a Venmo button with your exact total. Unpaid orders release back to the queue.</p>
       </div>
     </div>
     <div class="step">
@@ -405,11 +489,109 @@ const DROP = {
     </div>
   </section>
 
-  <section>
-    <div class="cta" id="cta">
-      <h2 id="ctaTitle">This week's drop is open</h2>
-      <p id="ctaBody">Limited quantities. Once it's claimed, it's closed until next week.</p>
-      <a class="btn" id="ctaBtn" href="#">Place your order</a>
+  <section id="order">
+
+    <!-- Shown when orders are closed or sold out -->
+    <div class="panel closedcard" id="closedCard" hidden>
+      <div class="label" id="closedLabel">Between drops</div>
+      <h2 id="closedTitle" style="margin-top:12px">Next drop opens Sunday at noon</h2>
+      <p id="closedBody">Get on the list below and you'll hear the moment orders open.</p>
+      <div class="count" id="countdown">
+        <div><b id="cdD">0</b><small>Days</small></div>
+        <div><b id="cdH">0</b><small>Hours</small></div>
+        <div><b id="cdM">0</b><small>Min</small></div>
+      </div>
+    </div>
+
+    <!-- Shown when orders are open -->
+    <div id="orderWrap" hidden>
+      <div class="order-head">
+        <div class="label">Place your order</div>
+        <h2 style="margin-top:12px">This week's drop is open</h2>
+        <div class="when" id="closesIn">Closes Wednesday at 8 PM</div>
+      </div>
+
+      <form name="order" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="orderForm" novalidate>
+        <input type="hidden" name="form-name" value="order">
+        <p hidden><label>Leave this empty <input name="bot-field"></label></p>
+        <input type="hidden" name="order_id">
+        <input type="hidden" name="pickup_date">
+        <input type="hidden" name="items">
+        <input type="hidden" name="cookie_count">
+        <input type="hidden" name="fulfillment">
+        <input type="hidden" name="delivery_zone">
+        <input type="hidden" name="delivery_fee">
+        <input type="hidden" name="total">
+
+        <div class="panel">
+          <span class="label">1 · Your boxes</span>
+          <div id="boxes"></div>
+          <button type="button" class="addbox" id="addBox">+ Add another box</button>
+        </div>
+
+        <div class="panel">
+          <span class="label">2 · Pickup or delivery</span>
+          <div class="opts">
+            <button type="button" class="opt" data-ful="Pickup" aria-pressed="true">
+              <b>Pickup · Free</b>
+              <span><span data-fill="pickupDay">Saturday</span>, <span data-fill="pickupWindow">11AM – 1PM</span> in <span data-fill="neighborhood">Southwind</span>. Address texted the day before.</span>
+            </button>
+            <button type="button" class="opt" data-ful="Delivery" aria-pressed="false">
+              <b>Delivery</b>
+              <span><span data-fill="pickupDay">Saturday</span>, <span data-fill="deliveryWindow">1PM – 4PM</span>. Arlington area, 1 dozen minimum.</span>
+            </button>
+          </div>
+          <div id="deliveryBits" hidden>
+            <div class="olabel">How far are you from Arlington?</div>
+            <div class="chips">
+              <button type="button" class="chip" data-zone="Within 5 miles" data-fee="5" aria-pressed="true">Within 5 miles <small>$5</small></button>
+              <button type="button" class="chip" data-zone="5 to 10 miles" data-fee="10" aria-pressed="false">5 to 10 miles <small>$10</small></button>
+            </div>
+            <label class="field"><span>Delivery address</span><input name="address" autocomplete="street-address" placeholder="Street, city, zip"></label>
+          </div>
+        </div>
+
+        <div class="panel">
+          <span class="label">3 · Your info</span>
+          <label class="field"><span>Name</span><input name="name" autocomplete="name" required></label>
+          <label class="field"><span>Mobile number</span><input name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="For pickup details"></label>
+          <label class="field"><span>Email (optional)</span><input name="email" type="email" autocomplete="email" inputmode="email"></label>
+          <label class="check"><input type="checkbox" name="alerts" value="yes" checked> Email me when each new drop opens</label>
+          <label class="field"><span>Notes (optional)</span><textarea name="notes" placeholder="How you'd like a mixed box split, gift notes, anything I should know"></textarea></label>
+          <label class="check"><input type="checkbox" name="allergen_ack" value="yes" required> I've read the allergen information below. Cookies are made in a home kitchen that also handles wheat, milk, eggs, soy, tree nuts, and peanuts.</label>
+        </div>
+
+        <div class="panel summary">
+          <span class="label">Your total</span>
+          <div id="sumRows"></div>
+          <div class="row total"><span>Total</span><b id="sumTotal">$0</b></div>
+        </div>
+
+        <div class="err" id="err" role="alert"></div>
+        <button type="submit" class="submit" id="submitBtn">Place order</button>
+        <p style="text-align:center;font-size:12.5px;color:var(--taupe);margin-top:12px">You'll pay on the next screen. Your spot is held once payment lands.</p>
+      </form>
+
+      <div class="panel done" id="done" hidden>
+        <div class="label">Order received</div>
+        <div class="oid" id="doneId"></div>
+        <div class="amt" id="doneAmt"></div>
+        <p id="donePay"></p>
+        <a class="paybtn" id="venmoBtn" href="#" target="_blank" rel="noopener" hidden>Pay with Venmo</a>
+        <p id="doneWhen" style="color:var(--taupe);font-size:13.5px"></p>
+      </div>
+    </div>
+
+    <!-- Drop alerts (Kit) -->
+    <div class="panel alerts" id="alerts" style="margin-top:16px">
+      <h3>Never miss a drop</h3>
+      <p>One email when orders open. That's it.</p>
+      <form id="alertForm" action="https://app.kit.com/forms/10055509/subscriptions" method="post">
+        <input type="email" name="email_address" aria-label="Email address" placeholder="Email address" required autocomplete="email">
+        <button type="submit">Notify me</button>
+      </form>
+      <div class="ok" id="alertOk">You're on the list. Check your inbox to confirm your email.</div>
+      <a class="kit" href="https://kit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic" target="_blank" rel="nofollow noopener">Built with Kit</a>
     </div>
   </section>
 
@@ -459,19 +641,350 @@ const DROP = {
     }
   });
 
-  // Order button + sold-out state
-  var cta = document.getElementById('cta');
-  var btn = document.getElementById('ctaBtn');
-  if (DROP.soldOut) {
-    cta.classList.add('closed');
-    document.getElementById('ctaTitle').textContent = 'This week is sold out';
-    document.getElementById('ctaBody').textContent =
-      'Next drop opens soon. Follow ' + DROP.handle + ' so you catch it.';
-    btn.textContent = 'Sold out';
-    btn.removeAttribute('href');
-  } else {
-    btn.href = DROP.orderLink;
+  // ── Order window: Sunday 12 PM to Wednesday 8 PM, Central time ──
+  var OPEN_AT = 0 * 1440 + 12 * 60;   // Sunday noon, in minutes from Sunday 00:00
+  var CLOSE_AT = 3 * 1440 + 20 * 60;  // Wednesday 8 PM
+  var WEEK = 7 * 1440;
+  var DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+  function central() {
+    var parts = {};
+    new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/Chicago', weekday: 'short', year: 'numeric', month: 'numeric',
+      day: 'numeric', hour: 'numeric', minute: 'numeric', hourCycle: 'h23'
+    }).formatToParts(new Date()).forEach(function (p) { parts[p.type] = p.value; });
+    var dow = DAYS.indexOf(parts.weekday);
+    return {
+      dow: dow, y: +parts.year, m: +parts.month, d: +parts.day,
+      mins: dow * 1440 + (+parts.hour % 24) * 60 + (+parts.minute)
+    };
   }
+
+  function windowOpen(now) {
+    if (DROP.orders === 'open') return true;
+    if (DROP.orders === 'closed') return false;
+    return now.mins >= OPEN_AT && now.mins < CLOSE_AT;
+  }
+
+  function upcomingSaturday(now) {
+    var dt = new Date(Date.UTC(now.y, now.m - 1, now.d));
+    dt.setUTCDate(dt.getUTCDate() + ((6 - now.dow + 7) % 7));
+    return dt.toLocaleDateString('en-US', { timeZone: 'UTC', weekday: 'long', month: 'long', day: 'numeric' });
+  }
+
+  function split(mins) {
+    return { d: Math.floor(mins / 1440), h: Math.floor((mins % 1440) / 60), m: mins % 60 };
+  }
+
+  var now = central();
+  var isOpen = !DROP.soldOut && windowOpen(now);
+  var closedCard = document.getElementById('closedCard');
+  var orderWrap = document.getElementById('orderWrap');
+
+  function paintClosed() {
+    var n = central();
+    var left = (OPEN_AT - n.mins + WEEK) % WEEK;
+    var t = split(left);
+    document.getElementById('cdD').textContent = t.d;
+    document.getElementById('cdH').textContent = t.h;
+    document.getElementById('cdM').textContent = t.m;
+    if (DROP.orders === 'auto' && !DROP.soldOut && windowOpen(n)) location.reload();
+  }
+
+  if (!isOpen) {
+    closedCard.hidden = false;
+    document.getElementById('heroLink').textContent = 'Get drop alerts';
+    document.getElementById('heroLink').href = '#alerts';
+    if (DROP.soldOut) {
+      document.getElementById('closedLabel').textContent = 'Sold out';
+      document.getElementById('closedTitle').textContent = 'This week is sold out';
+      document.getElementById('closedBody').textContent =
+        "Thank you! The next drop opens Sunday at noon. Get on the list below so you hear first.";
+    }
+    if (DROP.orders === 'closed' && !DROP.soldOut) {
+      document.getElementById('closedTitle').textContent = 'Orders are paused this week';
+      document.getElementById('closedBody').textContent =
+        "Get on the list below and you'll hear the moment the next drop opens.";
+      document.getElementById('countdown').hidden = true;
+    } else {
+      document.getElementById('statusK').textContent = 'Orders open';
+      document.getElementById('statusV').textContent = 'Sunday, noon';
+      paintClosed();
+      setInterval(paintClosed, 30000);
+    }
+  } else {
+    orderWrap.hidden = false;
+    if (DROP.orders === 'auto') {
+      var paintClose = function () {
+        var n = central();
+        var t = split(Math.max(0, CLOSE_AT - n.mins));
+        document.getElementById('closesIn').textContent =
+          'Closes in ' + (t.d ? t.d + 'd ' : '') + t.h + 'h ' + t.m + 'm';
+      };
+      paintClose();
+      setInterval(paintClose, 30000);
+    } else {
+      document.getElementById('closesIn').textContent = 'Closes ' + DROP.ordersClose;
+    }
+  }
+
+  // ── Order builder ──
+  var SIZES = [
+    { id: 'half', name: 'Half dozen', count: 6, price: 12 },
+    { id: 'dozen', name: 'Dozen', count: 12, price: 22 },
+    { id: 'two', name: 'Two dozen', count: 24, price: 42 },
+    { id: 'platter', name: 'Party Platter', count: 36, price: 68 }
+  ];
+  var MIXED = 'Mixed';
+  var MIX_FEE = 2;
+  var boxes = [];
+  var ful = 'Pickup';
+  var zone = { name: 'Within 5 miles', fee: 5 };
+  var form = document.getElementById('orderForm');
+  var boxesEl = document.getElementById('boxes');
+
+  function sizeOf(id) { return SIZES.filter(function (s) { return s.id === id; })[0]; }
+  function money(n) { return '$' + n; }
+  function boxPrice(b) {
+    var s = sizeOf(b.size);
+    var each = s.price + (b.flavor === MIXED && s.id !== 'platter' ? MIX_FEE : 0);
+    return each * b.qty;
+  }
+  function boxLabel(b) {
+    var s = sizeOf(b.size);
+    var f = s.id === 'platter' ? 'Mixed tray' : (b.flavor === MIXED ? 'Mixed box' : b.flavor);
+    return b.qty + ' × ' + s.name + ', ' + f;
+  }
+
+  function chip(text, small, pressed, attrs) {
+    var el = document.createElement('button');
+    el.type = 'button';
+    el.className = 'chip';
+    el.setAttribute('aria-pressed', pressed ? 'true' : 'false');
+    el.textContent = text;
+    if (small) { var sm = document.createElement('small'); sm.textContent = small; el.appendChild(sm); }
+    Object.keys(attrs || {}).forEach(function (k) { el.setAttribute(k, attrs[k]); });
+    return el;
+  }
+
+  function renderBoxes() {
+    boxesEl.innerHTML = '';
+    boxes.forEach(function (b, i) {
+      var s = sizeOf(b.size);
+      var card = document.createElement('div');
+      card.className = 'box';
+
+      var head = document.createElement('div');
+      head.className = 'bhead';
+      var nm = document.createElement('div');
+      nm.className = 'bname';
+      nm.textContent = 'Box ' + (i + 1);
+      head.appendChild(nm);
+      if (boxes.length > 1) {
+        var rm = document.createElement('button');
+        rm.type = 'button'; rm.className = 'rm'; rm.textContent = 'Remove';
+        rm.onclick = function () { boxes.splice(i, 1); renderBoxes(); };
+        head.appendChild(rm);
+      }
+      card.appendChild(head);
+
+      var l1 = document.createElement('div'); l1.className = 'olabel'; l1.textContent = 'Size';
+      card.appendChild(l1);
+      var sizes = document.createElement('div'); sizes.className = 'chips';
+      SIZES.forEach(function (sz) {
+        var c = chip(sz.name, money(sz.price), b.size === sz.id);
+        c.onclick = function () { b.size = sz.id; renderBoxes(); };
+        sizes.appendChild(c);
+      });
+      card.appendChild(sizes);
+
+      if (s.id !== 'platter') {
+        var l2 = document.createElement('div'); l2.className = 'olabel'; l2.textContent = 'Flavor';
+        card.appendChild(l2);
+        var flavors = document.createElement('div'); flavors.className = 'chips';
+        DROP.baking.concat([MIXED]).forEach(function (f) {
+          var c = chip(f === MIXED ? 'Mixed box' : f, f === MIXED ? '+$2' : '', b.flavor === f);
+          c.onclick = function () { b.flavor = f; renderBoxes(); };
+          flavors.appendChild(c);
+        });
+        card.appendChild(flavors);
+        if (b.flavor === MIXED) {
+          var mn = document.createElement('div'); mn.className = 'bnote';
+          mn.textContent = "An even mix of this week's flavors. Want a different split? Tell me in the notes.";
+          card.appendChild(mn);
+        }
+      } else {
+        var pn = document.createElement('div'); pn.className = 'bnote';
+        pn.textContent = "Three dozen mixed from this week's flavors, arranged on a tray. Platters need a week's notice and are limited to 2 per week, so I'll confirm yours by text.";
+        card.appendChild(pn);
+      }
+
+      var foot = document.createElement('div'); foot.className = 'bfoot';
+      var st = document.createElement('div'); st.className = 'stepper';
+      var minus = document.createElement('button'); minus.type = 'button'; minus.textContent = '−'; minus.setAttribute('aria-label', 'Fewer');
+      var q = document.createElement('span'); q.textContent = b.qty;
+      var plus = document.createElement('button'); plus.type = 'button'; plus.textContent = '+'; plus.setAttribute('aria-label', 'More');
+      minus.onclick = function () { if (b.qty > 1) { b.qty--; renderBoxes(); } };
+      plus.onclick = function () { if (b.qty < 6) { b.qty++; renderBoxes(); } };
+      st.appendChild(minus); st.appendChild(q); st.appendChild(plus);
+      var pr = document.createElement('div'); pr.className = 'bprice'; pr.textContent = money(boxPrice(b));
+      foot.appendChild(st); foot.appendChild(pr);
+      card.appendChild(foot);
+
+      boxesEl.appendChild(card);
+    });
+    renderSummary();
+  }
+
+  function totals() {
+    var cookies = 0, sub = 0;
+    boxes.forEach(function (b) { cookies += sizeOf(b.size).count * b.qty; sub += boxPrice(b); });
+    var fee = ful === 'Delivery' ? zone.fee : 0;
+    return { cookies: cookies, sub: sub, fee: fee, total: sub + fee };
+  }
+
+  function renderSummary() {
+    var t = totals();
+    var rows = document.getElementById('sumRows');
+    rows.innerHTML = '';
+    function row(a, b) {
+      var r = document.createElement('div'); r.className = 'row';
+      var x = document.createElement('span'); x.textContent = a;
+      var y = document.createElement('span'); y.textContent = b;
+      r.appendChild(x); r.appendChild(y); rows.appendChild(r);
+    }
+    boxes.forEach(function (b) { row(boxLabel(b), money(boxPrice(b))); });
+    if (ful === 'Delivery') row('Delivery, ' + zone.name.toLowerCase(), money(zone.fee));
+    document.getElementById('sumTotal').textContent = money(t.total);
+    document.getElementById('submitBtn').textContent = 'Place order · ' + money(t.total);
+  }
+
+  document.getElementById('addBox').onclick = function () {
+    boxes.push({ size: 'dozen', flavor: DROP.baking[0], qty: 1 });
+    renderBoxes();
+  };
+
+  document.querySelectorAll('.opt[data-ful]').forEach(function (o) {
+    o.onclick = function () {
+      ful = o.getAttribute('data-ful');
+      document.querySelectorAll('.opt[data-ful]').forEach(function (x) {
+        x.setAttribute('aria-pressed', x === o ? 'true' : 'false');
+      });
+      document.getElementById('deliveryBits').hidden = ful !== 'Delivery';
+      renderSummary();
+    };
+  });
+  document.querySelectorAll('.chip[data-zone]').forEach(function (c) {
+    c.onclick = function () {
+      zone = { name: c.getAttribute('data-zone'), fee: +c.getAttribute('data-fee') };
+      document.querySelectorAll('.chip[data-zone]').forEach(function (x) {
+        x.setAttribute('aria-pressed', x === c ? 'true' : 'false');
+      });
+      renderSummary();
+    };
+  });
+
+  boxes.push({ size: 'dozen', flavor: DROP.baking[0], qty: 1 });
+  renderBoxes();
+
+  function orderId() {
+    var a = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789', s = '';
+    for (var i = 0; i < 4; i++) s += a[Math.floor(Math.random() * a.length)];
+    var n = central();
+    return 'CS' + (n.m < 10 ? '0' : '') + n.m + (n.d < 10 ? '0' : '') + n.d + '-' + s;
+  }
+
+  function subscribe(email) {
+    // Adds the email to the Kit drop alert list. Kit sends a confirm email.
+    try {
+      fetch('https://app.kit.com/forms/10055509/subscriptions', {
+        method: 'POST', mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ email_address: email }).toString()
+      });
+    } catch (e) {}
+  }
+
+  form.addEventListener('change', function () { document.getElementById('err').classList.remove('show'); });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var err = document.getElementById('err');
+    var t = totals();
+    var msg = '';
+    if (!boxes.length) msg = 'Add at least one box.';
+    else if (!form.elements['name'].value.trim()) msg = 'Add your name.';
+    else if (form.elements['phone'].value.replace(/\D/g, '').length < 10) msg = 'Add a mobile number so I can text you pickup details.';
+    else if (form.elements['email'].value && !form.elements['email'].checkValidity()) msg = 'That email address looks off.';
+    else if (ful === 'Delivery' && t.cookies < 12) msg = 'Delivery has a 1 dozen minimum. Add another box or choose pickup.';
+    else if (ful === 'Delivery' && !form.elements['address'].value.trim()) msg = 'Add your delivery address.';
+    else if (!form.elements['allergen_ack'].checked) msg = 'Please check the allergen box to continue.';
+    if (msg) { err.textContent = msg; err.classList.add('show'); err.scrollIntoView({ block: 'center', behavior: 'smooth' }); return; }
+    err.classList.remove('show');
+
+    var id = orderId();
+    var pickupDate = upcomingSaturday(central());
+    form.elements['order_id'].value = id;
+    form.elements['pickup_date'].value = pickupDate;
+    form.elements['items'].value = boxes.map(boxLabel).join('\n');
+    form.elements['cookie_count'].value = t.cookies;
+    form.elements['fulfillment'].value = ful;
+    form.elements['delivery_zone'].value = ful === 'Delivery' ? zone.name : '';
+    form.elements['delivery_fee'].value = t.fee;
+    form.elements['total'].value = t.total;
+    if (ful !== 'Delivery') form.elements['address'].value = '';
+
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(new FormData(form)).toString()
+    }).then(function (r) {
+      if (!r.ok) throw new Error(r.status);
+      if (form.elements['alerts'].checked && form.elements['email'].value) subscribe(form.elements['email'].value);
+      form.hidden = true;
+      var done = document.getElementById('done');
+      done.hidden = false;
+      document.getElementById('doneId').textContent = 'Order ' + id;
+      document.getElementById('doneAmt').textContent = money(t.total);
+      var when = ful === 'Delivery'
+        ? 'Delivery ' + pickupDate + ', ' + DROP.deliveryWindow + ". I'll text you when it's on the way."
+        : 'Pickup ' + pickupDate + ', ' + DROP.pickupWindow + ' in ' + DROP.neighborhood + '. The address comes by text the day before.';
+      document.getElementById('doneWhen').textContent = when;
+      var note = 'Crave Society order ' + id;
+      if (DROP.venmo) {
+        var v = document.getElementById('venmoBtn');
+        v.hidden = false;
+        v.href = 'https://venmo.com/' + encodeURIComponent(DROP.venmo.replace(/^@/, '')) +
+          '?txn=pay&amount=' + t.total + '&note=' + encodeURIComponent(note);
+        document.getElementById('donePay').textContent =
+          'Tap below to pay. Your total and order number are already filled in. Your spot is held once payment lands.';
+      } else {
+        document.getElementById('donePay').textContent =
+          "You'll get a text shortly with how to pay. Your spot is held once payment lands.";
+      }
+      done.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    }).catch(function () {
+      btn.disabled = false;
+      renderSummary();
+      err.textContent = "That didn't go through. Check your connection and try again, or DM " + DROP.handle + '.';
+      err.classList.add('show');
+    });
+  });
+
+  // ── Drop alert signup ──
+  var alertForm = document.getElementById('alertForm');
+  alertForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var email = alertForm.email_address.value.trim();
+    if (!email || !alertForm.email_address.checkValidity()) { alertForm.email_address.reportValidity(); return; }
+    subscribe(email);
+    alertForm.hidden = true;
+    document.getElementById('alertOk').style.display = 'block';
+  });
 })();
 </script>
 
