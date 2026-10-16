@@ -40,7 +40,7 @@ const DROP = {
   venmo:        "cravesociety",
   cashapp:      "laceymonet",
 
-  // "auto" = opens Sunday at noon, closes Wednesday at 8 PM (Central) on its own.
+  // "auto" = opens Sunday at 12 PM, closes Wednesday at 8 PM (Central) on its own.
   // "open" or "closed" = override the schedule this week.
   orders:       "auto",
 
@@ -473,7 +473,7 @@ const DROP = {
       <div class="n">01</div>
       <div>
         <h4>Order by <span data-fill="ordersClose">Wednesday, 8 PM</span></h4>
-        <p>Orders open Sunday at noon and close at the deadline. No late additions. That's what keeps every box fresh.</p>
+        <p>Orders open Sunday at 12 PM and close at the deadline. No late additions. That's what keeps every box fresh.</p>
       </div>
     </div>
     <div class="step">
@@ -497,7 +497,7 @@ const DROP = {
     <!-- Shown when orders are closed or sold out -->
     <div class="panel closedcard" id="closedCard" hidden>
       <div class="label" id="closedLabel">Between drops</div>
-      <h2 id="closedTitle" style="margin-top:12px">Next drop opens Sunday at noon</h2>
+      <h2 id="closedTitle" style="margin-top:12px">Next drop opens Sunday at 12 PM</h2>
       <p id="closedBody">Get on the list below and you'll hear the moment orders open.</p>
       <div class="count" id="countdown">
         <div><b id="cdD">0</b><small>Days</small></div>
@@ -654,7 +654,7 @@ const DROP = {
   });
 
   // ── Order window: Sunday 12 PM to Wednesday 8 PM, Central time ──
-  var OPEN_AT = 0 * 1440 + 12 * 60;   // Sunday noon, in minutes from Sunday 00:00
+  var OPEN_AT = 0 * 1440 + 12 * 60;   // Sunday 12 PM, in minutes from Sunday 00:00
   var CLOSE_AT = 3 * 1440 + 20 * 60;  // Wednesday 8 PM
   var WEEK = 7 * 1440;
   var DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -719,7 +719,7 @@ const DROP = {
       document.getElementById('closedLabel').textContent = 'Sold out';
       document.getElementById('closedTitle').textContent = 'This week is sold out';
       document.getElementById('closedBody').textContent =
-        "Thank you! The next drop opens Sunday at noon. Get on the list below so you hear first.";
+        "Thank you! The next drop opens Sunday at 12 PM. Get on the list below so you hear first.";
     }
     if (DROP.orders === 'closed' && !DROP.soldOut) {
       document.getElementById('closedTitle').textContent = 'Orders are paused this week';
@@ -728,7 +728,7 @@ const DROP = {
       document.getElementById('countdown').hidden = true;
     } else {
       document.getElementById('statusK').textContent = 'Orders open';
-      document.getElementById('statusV').textContent = 'Sunday, noon';
+      document.getElementById('statusV').textContent = 'Sunday, 12 PM';
       paintClosed();
       setInterval(paintClosed, 30000);
     }
